@@ -1595,6 +1595,150 @@
         .card-wrap:hover .tech-badge.badge-5 { transition-delay: 0.30s; }
         .card-wrap:hover .tech-badge.badge-6 { transition-delay: 0.36s; }
 
+        /* ── VIEWERS BADGE & MODAL STYLES ── */
+        .viewers-pulse-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.18rem 0.55rem;
+            background: rgba(232, 255, 71, 0.12);
+            border: 1px solid rgba(232, 255, 71, 0.35);
+            color: var(--accent);
+            border-radius: 100px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            margin-left: 0.35rem;
+        }
+
+        .viewers-pulse-badge::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px var(--accent);
+            animation: pulseDot 1.5s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.4; }
+        }
+
+        .viewers-modal-content {
+            background: #101018 !important;
+            border: 1px solid rgba(232, 255, 71, 0.25) !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(232, 255, 71, 0.1) !important;
+            max-width: 620px !important;
+        }
+
+        .viewers-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.85rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .viewers-stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.85rem;
+            text-align: center;
+        }
+
+        .viewers-stat-card .v-num {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .viewers-stat-card .v-label {
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-top: 0.2rem;
+        }
+
+        .viewers-personalizer {
+            background: rgba(232, 255, 71, 0.04);
+            border: 1px dashed rgba(232, 255, 71, 0.3);
+            border-radius: 12px;
+            padding: 0.9rem 1.1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .viewers-personalizer label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.4rem;
+        }
+
+        .viewers-name-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .viewers-name-row input {
+            flex: 1;
+            background: #0a0a0f;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem 0.85rem;
+            color: #fff;
+            font-size: 0.82rem;
+        }
+
+        .viewers-name-row button {
+            background: var(--accent);
+            color: #0a0a0f;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.82rem;
+            transition: transform 0.2s ease;
+        }
+
+        .viewers-name-row button:hover {
+            transform: translateY(-2px);
+        }
+
+        .recent-visitors-list {
+            max-height: 220px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding-right: 0.25rem;
+        }
+
+        .visitor-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 0.6rem 0.85rem;
+            font-size: 0.82rem;
+        }
+
+        .visitor-info {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .visitor-meta {
+            color: var(--muted);
+            font-size: 0.75rem;
+        }
+
         @media (max-width: 768px) {
             .tech-badge.badge-1 { left: -10px; }
             .tech-badge.badge-2 { right: -10px; }
@@ -1602,6 +1746,7 @@
             .tech-badge.badge-4 { right: -15px; }
             .tech-badge.badge-5 { left: -10px; }
             .tech-badge.badge-6 { right: -10px; }
+            .viewers-stats-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -1621,6 +1766,12 @@
                 <li><a href="#services">Services</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li>
+                    <a href="javascript:void(0)" onclick="openViewersModal(event)">
+                        <i class="bi bi-eye-fill"></i> Viewers
+                        <span class="viewers-pulse-badge" id="navViewersBadge">1 Live</span>
+                    </a>
+                </li>
                 <li><a href="javascript:void(0)" onclick="openContactModal(event)" class="nav-cta">Hire Me</a></li>
             </ul>
         </div>
@@ -1723,6 +1874,12 @@
                 <div class="stat-label">Client Satisfaction</div>
                 <div class="stat-tooltip">All feedback received from school and personal clients.</div>
             </div>
+
+            <a href="javascript:void(0)" onclick="openViewersModal(event)" class="stat-item">
+                <div class="stat-num" id="heroViewsNum">1<span>+</span></div>
+                <div class="stat-label">Total Views</div>
+                <div class="stat-tooltip">Click to see live online visitors and location insights.</div>
+            </a>
 
         </div>
     </section>
@@ -2153,6 +2310,65 @@
         </div>
     </div>
 
+    {{-- Viewers & Visitor Insights Modal --}}
+    <div id="viewersModal" class="modal" style="display: none;">
+        <div class="modal-content viewers-modal-content">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title">👁️ Portfolio Live Viewers &amp; Insights</h3>
+                    <p style="font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem;">
+                        Real-time visitor counts and location insights.
+                    </p>
+                </div>
+                <button type="button" class="modal-close" onclick="closeViewersModal()">&times;</button>
+            </div>
+
+            <div class="viewers-stats-grid">
+                <div class="viewers-stat-card">
+                    <div class="v-num" id="vTotalViews">1</div>
+                    <div class="v-label">Total Page Views</div>
+                </div>
+                <div class="viewers-stat-card">
+                    <div class="v-num" id="vUniqueVisitors">1</div>
+                    <div class="v-label">Unique Visitors</div>
+                </div>
+                <div class="viewers-stat-card">
+                    <div class="v-num" id="vActiveOnline">1</div>
+                    <div class="v-label">🟢 Online Right Now</div>
+                </div>
+            </div>
+
+            <div class="viewers-personalizer">
+                <label for="visitor_name_input">👤 Personalize Your Visit (Optional Display Name):</label>
+                <div class="viewers-name-row">
+                    <input type="text" id="visitor_name_input" placeholder="Enter your name or nickname..." maxlength="50">
+                    <button type="button" onclick="saveVisitorName()">Save Name</button>
+                </div>
+                <span id="nameStatusMsg" style="font-size: 0.72rem; color: var(--accent); margin-top: 0.35rem; display: block;"></span>
+            </div>
+
+            <div style="margin-bottom: 0.5rem;">
+                <h4 style="font-size: 0.85rem; font-family: var(--font-head); color: var(--text); display: flex; align-items: center; justify-content: space-between;">
+                    <span>Recent Visitor Activity</span>
+                    <span style="font-size: 0.72rem; font-weight: normal; color: var(--muted);" id="lastUpdatedTime">Updated just now</span>
+                </h4>
+            </div>
+
+            <div class="recent-visitors-list" id="recentVisitorsContainer">
+                <div class="visitor-row">
+                    <div class="visitor-info">
+                        <span class="visitor-flag">📍</span>
+                        <div>
+                            <strong>Guest (Manila, PH)</strong>
+                            <div class="visitor-meta">Desktop • Chrome</div>
+                        </div>
+                    </div>
+                    <span style="color: var(--accent); font-size: 0.75rem;">Online now</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- Footer --}}
     <footer>
         <p>&copy; {{ date('Y') }} Daryl Tuante Dagpin<span>.</span> All rights reserved.</p>
@@ -2351,9 +2567,139 @@
         // close when clicking outside modal
         window.addEventListener("click", function (event) {
             const contactModal = document.getElementById("contactModal");
+            const viewersModal = document.getElementById("viewersModal");
             if (event.target === contactModal) {
                 closeContactModal();
             }
+            if (event.target === viewersModal) {
+                closeViewersModal();
+            }
+        });
+
+        // Viewers Modal Functions
+        function openViewersModal(event) {
+            if (event) event.preventDefault();
+            document.getElementById("viewersModal").style.display = "flex";
+            fetchViewersData();
+        }
+
+        function closeViewersModal() {
+            document.getElementById("viewersModal").style.display = "none";
+        }
+
+        async function fetchViewersData() {
+            try {
+                const response = await fetch('/api/viewers');
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('vTotalViews').textContent = data.total_views.toLocaleString();
+                    document.getElementById('vUniqueVisitors').textContent = data.unique_visitors.toLocaleString();
+                    document.getElementById('vActiveOnline').textContent = data.active_online;
+
+                    // Update Nav & Hero badges
+                    const navBadge = document.getElementById('navViewersBadge');
+                    if (navBadge) navBadge.textContent = data.active_online + ' Live';
+
+                    const heroViews = document.getElementById('heroViewsNum');
+                    if (heroViews) heroViews.innerHTML = data.total_views.toLocaleString() + '<span>+</span>';
+
+                    // Update Recent Visitors Container
+                    const container = document.getElementById('recentVisitorsContainer');
+                    container.innerHTML = '';
+
+                    if (data.recent_visitors && data.recent_visitors.length > 0) {
+                        data.recent_visitors.forEach(v => {
+                            const row = document.createElement('div');
+                            row.className = 'visitor-row';
+                            const isCurrent = data.current_visitor && (data.current_visitor.display_name === v.display_name);
+
+                            row.innerHTML = `
+                                <div class="visitor-info">
+                                    <span class="visitor-flag">📍</span>
+                                    <div>
+                                        <strong>${escapeHtml(v.display_name)} ${isCurrent ? '<span style="color:var(--accent); font-size:0.7rem;">(You)</span>' : ''}</strong>
+                                        <div class="visitor-meta">${escapeHtml(v.city)}, ${escapeHtml(v.country)} • ${escapeHtml(v.device)} (${escapeHtml(v.browser)})</div>
+                                    </div>
+                                </div>
+                                <span style="color: ${v.is_online ? 'var(--accent)' : 'var(--muted)'}; font-size: 0.75rem;">
+                                    ${v.is_online ? '🟢 Online now' : escapeHtml(v.last_seen)}
+                                </span>
+                            `;
+                            container.appendChild(row);
+                        });
+                    }
+
+                    if (data.current_visitor && data.current_visitor.display_name) {
+                        const input = document.getElementById('visitor_name_input');
+                        if (input && !input.value) input.value = data.current_visitor.display_name;
+                    }
+
+                    const updatedEl = document.getElementById('lastUpdatedTime');
+                    if (updatedEl) updatedEl.textContent = 'Updated ' + new Date().toLocaleTimeString();
+                }
+            } catch (err) {
+                console.error('Failed to fetch viewers data:', err);
+            }
+        }
+
+        async function saveVisitorName() {
+            const input = document.getElementById('visitor_name_input');
+            const status = document.getElementById('nameStatusMsg');
+            const name = input ? input.value.trim() : '';
+
+            if (!name) return;
+
+            try {
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const response = await fetch('/api/viewers/set-name', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ name: name })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    if (status) {
+                        status.textContent = '✓ Saved! Hello, ' + escapeHtml(data.name) + '!';
+                        setTimeout(() => { status.textContent = ''; }, 3500);
+                    }
+                    fetchViewersData();
+                }
+            } catch (err) {
+                console.error(err);
+                if (status) status.textContent = 'Failed to save name.';
+            }
+        }
+
+        // Periodic heartbeat ping to keep active viewer count accurate
+        setInterval(async () => {
+            try {
+                const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+                if (!csrfMeta) return;
+                const csrfToken = csrfMeta.getAttribute('content');
+                const res = await fetch('/api/viewers/ping', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    const navBadge = document.getElementById('navViewersBadge');
+                    if (navBadge) navBadge.textContent = data.active_online + ' Live';
+                }
+            } catch (e) {}
+        }, 30000);
+
+        // Fetch viewers stats on DOM ready
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchViewersData();
         });
 
         const reveals = document.querySelectorAll('.reveal');
@@ -2395,6 +2741,97 @@
                     navToggle.classList.remove('open');
                     navToggle.setAttribute('aria-expanded', 'false');
                 }
+            });
+    <!-- Firebase Realtime Database SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <script>
+        // Firebase Realtime Database Setup for /portfolio_visitors
+        const firebaseConfig = {
+            databaseURL: "https://sql-practical-exam-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        };
+        if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const rtdb = (typeof firebase !== 'undefined' && firebase.database) ? firebase.database() : null;
+
+        if (rtdb) {
+            // Realtime Listener for Total Views
+            rtdb.ref('portfolio_visitors/stats/total_views').on('value', (snapshot) => {
+                const totalViews = snapshot.val();
+                if (totalViews) {
+                    const vEl = document.getElementById('vTotalViews');
+                    if (vEl) vEl.textContent = Number(totalViews).toLocaleString();
+                    const heroEl = document.getElementById('heroViewsNum');
+                    if (heroEl) heroEl.innerHTML = Number(totalViews).toLocaleString() + '<span>+</span>';
+                }
+            });
+
+            // Realtime Listener for Active Sessions & Live Viewers
+            rtdb.ref('portfolio_visitors/active_sessions').on('value', (snapshot) => {
+                const data = snapshot.val() || {};
+                const nowMs = Date.now();
+                const fiveMinsMs = 5 * 60 * 1000;
+
+                let liveCount = 0;
+                const visitorsList = [];
+
+                Object.values(data).forEach(session => {
+                    const lastAct = session.last_activity_at || 0;
+                    const isOnline = (nowMs - lastAct <= fiveMinsMs);
+                    if (isOnline) liveCount++;
+                    visitorsList.push({
+                        ...session,
+                        is_online: isOnline,
+                        last_seen: isOnline ? '🟢 Online now' : timeAgo(lastAct)
+                    });
+                });
+
+                if (liveCount < 1) liveCount = 1;
+
+                const navBadge = document.getElementById('navViewersBadge');
+                if (navBadge) navBadge.textContent = liveCount + ' Live';
+
+                const onlineEl = document.getElementById('vActiveOnline');
+                if (onlineEl) onlineEl.textContent = liveCount;
+
+                visitorsList.sort((a, b) => (b.last_activity_at || 0) - (a.last_activity_at || 0));
+                renderFirebaseVisitors(visitorsList.slice(0, 10));
+            });
+        }
+
+        function timeAgo(timestampMs) {
+            if (!timestampMs) return 'Just now';
+            const diffSec = Math.floor((Date.now() - timestampMs) / 1000);
+            if (diffSec < 60) return 'Just now';
+            if (diffSec < 3600) return Math.floor(diffSec / 60) + 'm ago';
+            if (diffSec < 86400) return Math.floor(diffSec / 3600) + 'h ago';
+            return Math.floor(diffSec / 86400) + 'd ago';
+        }
+
+        function renderFirebaseVisitors(visitors) {
+            const container = document.getElementById('recentVisitorsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            visitors.forEach(v => {
+                const row = document.createElement('div');
+                row.className = 'visitor-row';
+
+                row.innerHTML = `
+                    <div class="visitor-info">
+                        <span class="visitor-flag">📍</span>
+                        <div>
+                            <strong>${escapeHtml(v.display_name || 'Guest')}</strong>
+                            <div class="visitor-meta">${escapeHtml(v.city || 'Manila')}, ${escapeHtml(v.country || 'Philippines')} • ${escapeHtml(v.device || 'Desktop')} (${escapeHtml(v.browser || 'Browser')})</div>
+                        </div>
+                    </div>
+                    <span style="color: ${v.is_online ? 'var(--accent)' : 'var(--muted)'}; font-size: 0.75rem;">
+                        ${v.is_online ? '🟢 Online now' : escapeHtml(v.last_seen)}
+                    </span>
+                `;
+                container.appendChild(row);
             });
         }
     </script>
