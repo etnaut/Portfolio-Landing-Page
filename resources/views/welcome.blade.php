@@ -35,6 +35,10 @@
             scroll-behavior: smooth;
         }
 
+        section[id] {
+            scroll-margin-top: 5.5rem;
+        }
+
         body {
             background: var(--bg);
             color: var(--text);
@@ -184,7 +188,7 @@
             }
 
             .nav-links.open {
-                max-height: 320px;
+                max-height: 420px;
                 opacity: 1;
                 visibility: visible;
                 transform: translateY(0) scale(1);
@@ -592,6 +596,303 @@
         .service-card:hover .service-arrow {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* ── ABOUT ── */
+        .about {
+            padding: 7rem 6vw;
+            background: var(--bg);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+            gap: 3.5rem;
+            align-items: start;
+        }
+
+        .about-copy p {
+            color: var(--muted);
+            font-size: 1.02rem;
+            line-height: 1.8;
+            margin-bottom: 1.15rem;
+            max-width: 640px;
+        }
+
+        .about-copy p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .about-copy strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .about-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .about-meta-item {
+            background: var(--card);
+            padding: 1.35rem 1.5rem;
+        }
+
+        .about-meta-item span {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.35rem;
+        }
+
+        .about-meta-item p {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* ── WORK ── */
+        .work {
+            padding: 7rem 6vw;
+            background: var(--bg2);
+        }
+
+        .work-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .work-item {
+            display: grid;
+            grid-template-columns: 80px minmax(0, 1fr) auto;
+            gap: 2rem;
+            align-items: start;
+            background: var(--card);
+            padding: 2.25rem 2.5rem;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s, background 0.3s;
+            position: relative;
+        }
+
+        .work-item:hover {
+            background: #161622;
+            border-color: rgba(232, 255, 71, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(232, 255, 71, 0.05);
+        }
+
+        .work-index {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            line-height: 1;
+            padding: 0.5rem 0.75rem;
+            background: rgba(232, 255, 71, 0.08);
+            border: 1px solid rgba(232, 255, 71, 0.15);
+            border-radius: 12px;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .work-body h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.65rem;
+            color: var(--text);
+        }
+
+        .work-problem {
+            font-size: 0.92rem;
+            color: #d0d0dc;
+            line-height: 1.65;
+            margin-bottom: 1rem;
+        }
+
+        .work-problem strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .work-features {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.5rem 1.25rem;
+            margin-bottom: 1.25rem;
+            padding-left: 0;
+        }
+
+        .work-features li {
+            font-size: 0.85rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .work-features li::before {
+            content: "✦";
+            color: var(--accent);
+            font-size: 0.7rem;
+        }
+
+        .work-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            padding: 0.6rem 1.1rem;
+            border: 1px solid rgba(232, 255, 71, 0.25);
+            background: rgba(232, 255, 71, 0.06);
+            border-radius: 100px;
+            transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+        }
+
+        .work-link:hover {
+            color: #0a0a0f;
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .work-footnote {
+            margin-top: 2rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .work-footnote a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .work-footnote a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── SKILLS ── */
+        .skills {
+            padding: 7rem 6vw;
+            background: var(--bg);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-group {
+            background: var(--card);
+            padding: 2.5rem;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s;
+        }
+
+        .skill-group:hover {
+            border-color: rgba(232, 255, 71, 0.2);
+        }
+
+        .skill-group h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .skill-group h3 span {
+            color: var(--accent);
+        }
+
+        .skill-group > p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1.75rem;
+        }
+
+        .skill-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .skill-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .skill-row-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .skill-row strong {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .skill-row span {
+            font-size: 0.78rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .skill-track {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 100px;
+        }
+
+        @media (max-width: 900px) {
+            .about-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .work-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .work-link {
+                justify-self: start;
+            }
         }
 
         /* ── CONTACT ── */
@@ -1072,6 +1373,13 @@
         .stat-item {
             position: relative;
             cursor: default;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        a.stat-item {
+            cursor: pointer;
         }
 
         /* hidden tooltip */
@@ -1120,7 +1428,7 @@
             max-width: 320px;
             height: 480px;
             cursor: pointer;
-            perspective: 1600px;
+            perspective: 1400px;
             perspective-origin: center bottom;
         }
 
@@ -1137,8 +1445,8 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
             z-index: 1;
             transform: rotate(-4deg) translateX(-8px) translateY(6px);
-            transition: transform 0.5s cubic-bezier(0.34, 1.3, 0.64, 1),
-                box-shadow 0.5s ease;
+            transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.45s ease;
             transform-style: preserve-3d;
         }
 
@@ -1162,8 +1470,9 @@
             border-radius: 20px;
             overflow: visible;
             z-index: 2;
-            transition: transform 0.5s cubic-bezier(0.34, 1.3, 0.64, 1);
+            transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
             transform-style: preserve-3d;
+            will-change: transform;
         }
 
         .card-front-frame {
@@ -1176,7 +1485,7 @@
             overflow: hidden;
             border: 1px solid rgba(232, 255, 71, 0.18);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            transition: box-shadow 0.5s ease;
+            transition: box-shadow 0.45s ease, border-color 0.45s ease;
             transform: translateZ(0);
         }
 
@@ -1193,7 +1502,7 @@
             position: absolute;
             bottom: 0;
             left: 50%;
-            transform: translateX(-50%) translateY(30px) translateZ(0);
+            transform: translateX(-50%) translateY(20px) translateZ(0);
             width: 120%;
             height: 120%;
             object-fit: cover;
@@ -1201,38 +1510,98 @@
             z-index: 5;
             pointer-events: none;
             opacity: 0;
-            transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1),
-                filter 0.5s ease,
-                opacity 0.35s ease;
-            filter: drop-shadow(0 -10px 20px rgba(232, 255, 71, 0.1)) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.7));
+            transition: transform 0.45s cubic-bezier(0.34, 1.35, 0.64, 1),
+                filter 0.45s ease,
+                opacity 0.3s ease;
+            filter: drop-shadow(0 -8px 15px rgba(232, 255, 71, 0.1)) drop-shadow(0 12px 25px rgba(0, 0, 0, 0.6));
             transform-origin: bottom center;
+            will-change: transform, opacity;
         }
 
+        /* ── FLOATING TECH BADGES ON HOVER ── */
+        .tech-badge {
+            position: absolute;
+            z-index: 10;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.85rem;
+            background: rgba(19, 19, 28, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(232, 255, 71, 0.35);
+            border-radius: 100px;
+            color: var(--text);
+            font-size: 0.78rem;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(232, 255, 71, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.7) translateY(15px);
+            transition: opacity 0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
+                transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
+                visibility 0.35s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .tech-badge i {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        /* Staggered badge positions around card */
+        .tech-badge.badge-1 { top: -12px; left: -30px; }
+        .tech-badge.badge-2 { top: 40px; right: -35px; }
+        .tech-badge.badge-3 { top: 145px; left: -45px; }
+        .tech-badge.badge-4 { top: 215px; right: -40px; }
+        .tech-badge.badge-5 { bottom: 70px; left: -35px; }
+        .tech-badge.badge-6 { bottom: 10px; right: -25px; }
+
+        /* Hover states */
         .card-wrap:hover .card-front-character {
-            transform: translateX(-50%) translateY(-45px) translateZ(50px) rotateX(1deg);
+            transform: translateX(-50%) translateY(-35px) translateZ(30px);
             opacity: 1;
-            filter: drop-shadow(0 -20px 40px rgba(232, 255, 71, 0.2)) drop-shadow(0 25px 50px rgba(0, 0, 0, 0.9));
+            filter: drop-shadow(0 -15px 30px rgba(232, 255, 71, 0.25)) drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
         }
 
         .card-wrap:hover .card-back {
-            transform: rotate(-6deg) translateX(-18px) translateY(10px) scale(0.98);
+            transform: rotate(-5deg) translateX(-12px) translateY(8px) scale(0.98);
         }
 
         .card-wrap:hover .card-back-img {
-            filter: brightness(0.6);
+            filter: brightness(0.65);
         }
 
         .card-wrap:hover .card-front {
-            transform: translateY(-20px) rotateX(8deg) rotateY(-3deg);
+            transform: translateY(-12px) rotateX(6deg) rotateY(-2deg);
         }
 
         .card-wrap:hover .card-front-frame {
-            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.7),
-                0 0 40px rgba(232, 255, 71, 0.1);
+            border-color: rgba(232, 255, 71, 0.4);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7),
+                0 0 35px rgba(232, 255, 71, 0.15);
         }
 
-        .card-wrap:hover .card-glow {
+        .card-wrap:hover .tech-badge {
             opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+        }
+
+        .card-wrap:hover .tech-badge.badge-1 { transition-delay: 0.05s; }
+        .card-wrap:hover .tech-badge.badge-2 { transition-delay: 0.12s; }
+        .card-wrap:hover .tech-badge.badge-3 { transition-delay: 0.18s; }
+        .card-wrap:hover .tech-badge.badge-4 { transition-delay: 0.24s; }
+        .card-wrap:hover .tech-badge.badge-5 { transition-delay: 0.30s; }
+        .card-wrap:hover .tech-badge.badge-6 { transition-delay: 0.36s; }
+
+        @media (max-width: 768px) {
+            .tech-badge.badge-1 { left: -10px; }
+            .tech-badge.badge-2 { right: -10px; }
+            .tech-badge.badge-3 { left: -15px; }
+            .tech-badge.badge-4 { right: -15px; }
+            .tech-badge.badge-5 { left: -10px; }
+            .tech-badge.badge-6 { right: -10px; }
         }
     </style>
 </head>
@@ -1247,7 +1616,10 @@
                 <span></span>
             </button>
             <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#work">Work</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="javascript:void(0)" onclick="openContactModal(event)" class="nav-cta">Hire Me</a></li>
             </ul>
@@ -1274,8 +1646,8 @@
                 </p>
 
                 <div class="hero-actions">
-                    <a href="#services" class="btn-primary">
-                        View Services
+                    <a href="#work" class="btn-primary">
+                        View Work
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5">
                             <path d="M5 12h14M12 5l7 7-7 7" />
@@ -1300,6 +1672,32 @@
                         <!-- Character floats OUTSIDE the frame -->
                         <img class="card-front-character" src="{{ asset('Image/Daryl Second Image.png') }}"
                             alt="Daryl Dagpin">
+
+                        <!-- Floating Tech Stack Badges on Hover -->
+                        <div class="tech-badge badge-1">
+                            <i class="bi bi-layers-fill"></i>
+                            <span>Laravel</span>
+                        </div>
+                        <div class="tech-badge badge-2">
+                            <i class="bi bi-react"></i>
+                            <span>React</span>
+                        </div>
+                        <div class="tech-badge badge-3">
+                            <i class="bi bi-code-slash"></i>
+                            <span>PHP</span>
+                        </div>
+                        <div class="tech-badge badge-4">
+                            <i class="bi bi-database-fill"></i>
+                            <span>MySQL</span>
+                        </div>
+                        <div class="tech-badge badge-5">
+                            <i class="bi bi-filetype-js"></i>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="tech-badge badge-6">
+                            <i class="bi bi-tools"></i>
+                            <span>IT Support</span>
+                        </div>
                     </div>
 
                 </div>
@@ -1314,11 +1712,11 @@
                 <div class="stat-tooltip">Started as a student developer, focused on web systems and IT support.</div>
             </div>
 
-            <div class="stat-item" onclick="openProjectsModal()" style="cursor: pointer;">
+            <a href="#work" class="stat-item">
                 <div class="stat-num">5<span>+</span></div>
                 <div class="stat-label">Projects Done</div>
                 <div class="stat-tooltip">Includes web apps, games, and system development projects.</div>
-            </div>
+            </a>
 
             <div class="stat-item">
                 <div class="stat-num">100<span>%</span></div>
@@ -1327,6 +1725,192 @@
             </div>
 
         </div>
+    </section>
+
+    {{-- About --}}
+    <section class="about" id="about">
+        <div class="section-header reveal">
+            <div>
+                <span class="section-label">About</span>
+                <h2 class="section-title">Developer and IT support,<br>built for real problems</h2>
+            </div>
+        </div>
+        <div class="about-grid reveal">
+            <div class="about-copy">
+                <p>
+                    I’m <strong>Daryl Tuante Dagpin</strong>, a web developer and IT support specialist
+                    based in the Philippines. I build clean, reliable digital tools — and I stay around
+                    to keep the machines they run on healthy.
+                </p>
+                <p>
+                    Most of my work sits in the same place clients actually live: barangay records,
+                    pharmacy counters, document routing, and the day-to-day troubleshooting that
+                    keeps a small team online. I care about systems that are easy to use, easy to
+                    maintain, and honest about what they do.
+                </p>
+                <p>
+                    If you need a site, a web app, or someone who can both ship code and fix the
+                    network underneath it — that’s the lane I work in.
+                </p>
+            </div>
+            <div class="about-meta">
+                <div class="about-meta-item">
+                    <span>Based in</span>
+                    <p>Philippines</p>
+                </div>
+                <div class="about-meta-item">
+                    <span>Focus</span>
+                    <p>Web development &amp; IT support</p>
+                </div>
+                <div class="about-meta-item">
+                    <span>Availability</span>
+                    <p>Open for freelance and hire</p>
+                </div>
+                <div class="about-meta-item">
+                    <span>Stack</span>
+                    <p>Laravel, React, MySQL, HTML/CSS, JavaScript</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Work --}}
+    <section class="work" id="work">
+        <div class="section-header reveal">
+            <div>
+                <span class="section-label">Selected Systems &amp; Case Studies</span>
+                <h2 class="section-title">Things I’ve built</h2>
+            </div>
+            <p class="section-desc">
+                Production-focused web applications and operational software. Each project solves a specific real-world problem for local government, healthcare, or administrative workflows.
+            </p>
+        </div>
+
+        <div class="work-list reveal">
+            {{-- Project 01 --}}
+            <article class="work-item">
+                <span class="work-index">01</span>
+                <div class="work-body">
+                    <h3>Barangay Information System</h3>
+                    <p class="work-problem">
+                        <strong>Problem Solved:</strong> Manual paper-based records hindered resident verifications, certificate issuance, and community profiling for local staff.
+                    </p>
+                    <ul class="work-features">
+                        <li>Resident registry with instant search &amp; filter</li>
+                        <li>Automated barangay clearance &amp; certificate generation</li>
+                        <li>Household data grouping &amp; demographic analytics</li>
+                    </ul>
+                    <div class="service-tags">
+                        <span class="tag">PHP / Laravel</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">Bootstrap</span>
+                        <span class="tag">Web System</span>
+                    </div>
+                </div>
+                <a class="work-link" href="https://github.com/etnaut?tab=repositories" target="_blank"
+                    rel="noopener noreferrer">GitHub Repo <span aria-hidden="true">↗</span></a>
+            </article>
+
+            {{-- Project 02 --}}
+            <article class="work-item">
+                <span class="work-index">02</span>
+                <div class="work-body">
+                    <h3>Pharmacy POS &amp; Inventory Management System</h3>
+                    <p class="work-problem">
+                        <strong>Problem Solved:</strong> Disorganized stock tracking caused stockouts and manual calculation errors at cashier checkout counters.
+                    </p>
+                    <ul class="work-features">
+                        <li>Point-of-sale checkout counter with barcode lookup</li>
+                        <li>Real-time stock alerts &amp; medicine expiration warnings</li>
+                        <li>Automated end-of-day sales reporting &amp; profit tracking</li>
+                    </ul>
+                    <div class="service-tags">
+                        <span class="tag">PHP</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">POS Counter</span>
+                        <span class="tag">Inventory Control</span>
+                    </div>
+                </div>
+                <a class="work-link" href="https://github.com/etnaut?tab=repositories" target="_blank"
+                    rel="noopener noreferrer">GitHub Repo <span aria-hidden="true">↗</span></a>
+            </article>
+
+            {{-- Project 03 --}}
+            <article class="work-item">
+                <span class="work-index">03</span>
+                <div class="work-body">
+                    <h3>Takipsilim (3D Horror Game)</h3>
+                    <p class="work-problem">
+                        <strong>Problem Solved:</strong> Designing immersive, responsive third-person movement and dynamic spatial atmosphere in a 3D environment.
+                    </p>
+                    <ul class="work-features">
+                        <li>Custom third-person character movement &amp; collision</li>
+                        <li>Dynamic lighting triggers &amp; horror atmosphere design</li>
+                        <li>Interactive puzzle mechanisms &amp; sound spatialization</li>
+                    </ul>
+                    <div class="service-tags">
+                        <span class="tag">3D Game Engine</span>
+                        <span class="tag">C# / Scripting</span>
+                        <span class="tag">3D Design</span>
+                        <span class="tag">Interactive</span>
+                    </div>
+                </div>
+                <a class="work-link" href="https://github.com/etnaut?tab=repositories" target="_blank"
+                    rel="noopener noreferrer">GitHub Repo <span aria-hidden="true">↗</span></a>
+            </article>
+
+            {{-- Project 04 --}}
+            <article class="work-item">
+                <span class="work-index">04</span>
+                <div class="work-body">
+                    <h3>Document Flow &amp; Tracking System</h3>
+                    <p class="work-problem">
+                        <strong>Problem Solved:</strong> Physical document handoffs frequently mislaid files or stalled across multi-department administrative routes.
+                    </p>
+                    <ul class="work-features">
+                        <li>Unique tracking ID &amp; barcode routing</li>
+                        <li>Multi-department status timeline &amp; handoff approvals</li>
+                        <li>Audit log of document actions and pending approvals</li>
+                    </ul>
+                    <div class="service-tags">
+                        <span class="tag">PHP / Laravel</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">Workflow Automation</span>
+                        <span class="tag">REST API</span>
+                    </div>
+                </div>
+                <a class="work-link" href="https://github.com/etnaut?tab=repositories" target="_blank"
+                    rel="noopener noreferrer">GitHub Repo <span aria-hidden="true">↗</span></a>
+            </article>
+
+            {{-- Project 05 --}}
+            <article class="work-item">
+                <span class="work-index">05</span>
+                <div class="work-body">
+                    <h3>Personal Portfolio &amp; Client Hire System</h3>
+                    <p class="work-problem">
+                        <strong>Problem Solved:</strong> Demonstrating developer technical stack and IT services with custom high-end visuals and working backend attachment handling.
+                    </p>
+                    <ul class="work-features">
+                        <li>Custom 3D pop-out photo card &amp; dark/acid-lime UI theme</li>
+                        <li>AJAX contact modal with multi-file attachment support</li>
+                        <li>Laravel backend mailer route integration (/contact/send)</li>
+                    </ul>
+                    <div class="service-tags">
+                        <span class="tag">Laravel</span>
+                        <span class="tag">Blade</span>
+                        <span class="tag">Vanilla CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                </div>
+                <a class="work-link" href="https://github.com/etnaut?tab=repositories" target="_blank"
+                    rel="noopener noreferrer">GitHub Repo <span aria-hidden="true">↗</span></a>
+            </article>
+        </div>
+        <p class="work-footnote reveal">
+            More open-source systems and project code live on
+            <a href="https://github.com/etnaut?tab=repositories" target="_blank" rel="noopener noreferrer">github.com/etnaut</a>.
+        </p>
     </section>
 
     {{-- Services Section --}}
@@ -1382,6 +1966,97 @@
         </div>
     </section>
 
+    {{-- Skills --}}
+    <section class="skills" id="skills">
+        <div class="section-header reveal">
+            <div>
+                <span class="section-label">Skills &amp; Core Competencies</span>
+                <h2 class="section-title">How I work</h2>
+            </div>
+            <p class="section-desc">
+                Two distinct domains, one engineer: architecting full-stack web applications, and ensuring the network &amp; physical hardware beneath remain rock solid.
+            </p>
+        </div>
+        <div class="skills-grid reveal">
+            <div class="skill-group">
+                <h3><span>🌐</span> Web Development</h3>
+                <p>Building functional web apps from frontend layouts down to database queries &amp; APIs.</p>
+                <div class="skill-rows">
+                    <div class="skill-row">
+                        <div class="skill-row-meta">
+                            <strong>Laravel &amp; PHP</strong>
+                            <span>Full-Stack &amp; MVC</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 88%;"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-row-meta">
+                            <strong>React &amp; JavaScript (ES6+)</strong>
+                            <span>Interactive Frontend</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 82%;"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-row-meta">
+                            <strong>MySQL &amp; Relational Databases</strong>
+                            <span>Schema &amp; Query Optimization</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 85%;"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-row-meta">
+                            <strong>HTML5, CSS3 &amp; UI Styling</strong>
+                            <span>Custom Design &amp; Layouts</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 92%;"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-row-meta">
+                            <strong>REST APIs &amp; Git Version Control</strong>
+                            <span>Integrations &amp; Workflows</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 86%;"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <h3><span>🖥️</span> IT Support &amp; Infrastructure</h3>
+                <p>Hands-on hardware troubleshooting, networking setup, and system maintenance.</p>
+                <div class="skill-rows">
+                    <div class="skill-row">
+                        <div class="skill-row-meta">
+                            <strong>Hardware Diagnostics &amp; Repair</strong>
+                            <span>PC Assembly &amp; Troubleshooting</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 90%;"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-row-meta">
+                            <strong>Network Setup &amp; Router Configuration</strong>
+                            <span>LAN, Wi-Fi &amp; Cabling</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 85%;"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-row-meta">
+                            <strong>OS Deployment &amp; Administration</strong>
+                            <span>Windows Installation &amp; Drivers</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 92%;"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-row-meta">
+                            <strong>System Maintenance &amp; Security</strong>
+                            <span>Virus Removal &amp; Optimization</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 88%;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     {{-- Contact Section --}}
     <section class="contact" id="contact">
         <div class="contact-glow"></div>
@@ -1399,37 +2074,6 @@
             daryl21t@gmail.com
         </a>
     </section>
-
-    <!-- Projects Modal -->
-    <div id="projectsModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeProjectsModal()">&times;</span>
-
-            <h2>My Projects</h2>
-
-            <ul>
-                <li><i class="bi bi-laptop"></i> Barangay Information System</li>
-                <li><i class="bi bi-cash"></i> Pharmacy POS Management System</li>
-                <li><i class="bi bi-controller"></i> Takipsilim Third Person Horror Game</li>
-                <li><i class="bi bi-diagram-3"></i> Document Flow and Tracking System</li>
-                <li><i class="bi bi-globe"></i> Laravel Landing Page</li>
-            </ul>
-
-            <div style="margin-top: 1.5rem; text-align: center;">
-                <a href="https://github.com/etnaut?tab=repositories" target="_blank" rel="noopener noreferrer"
-                    class="btn-primary"
-                    style="display: inline-flex; align-items: center; gap: 0.5rem; justify-content: center; width: 100%; text-decoration: none;">
-                    <i class="bi bi-github"></i> View Repositories
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2.5">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </div>
 
     <!-- Contact Email Modal -->
     <div id="contactModal" class="modal">
@@ -1514,8 +2158,11 @@
         <p>&copy; {{ date('Y') }} Daryl Tuante Dagpin<span>.</span> All rights reserved.</p>
         <div class="footer-links">
             <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#work">Work</a>
             <a href="#services">Services</a>
             <a href="#contact">Contact</a>
+            <a href="https://github.com/etnaut" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
     </footer>
 
@@ -1538,14 +2185,6 @@
                 scrollToTop();
             }
         });
-
-        function openProjectsModal() {
-            document.getElementById("projectsModal").style.display = "flex";
-        }
-
-        function closeProjectsModal() {
-            document.getElementById("projectsModal").style.display = "none";
-        }
 
         // Contact Modal Functions
         let attachedFiles = [];
@@ -1711,11 +2350,7 @@
 
         // close when clicking outside modal
         window.addEventListener("click", function (event) {
-            const projectsModal = document.getElementById("projectsModal");
             const contactModal = document.getElementById("contactModal");
-            if (event.target === projectsModal) {
-                projectsModal.style.display = "none";
-            }
             if (event.target === contactModal) {
                 closeContactModal();
             }
@@ -1744,6 +2379,14 @@
                 const isOpen = navLinks.classList.toggle('open');
                 navToggle.classList.toggle('open', isOpen);
                 navToggle.setAttribute('aria-expanded', isOpen);
+            });
+
+            navLinks.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('open');
+                    navToggle.classList.remove('open');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                });
             });
 
             window.addEventListener('click', function (event) {
