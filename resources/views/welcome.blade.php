@@ -2759,15 +2759,88 @@
         }
         const rtdb = (typeof firebase !== 'undefined' && firebase.database) ? firebase.database() : null;
 
+        // Visitor Session ID in localStorage
+        let visitorSessionId = localStorage.getItem('visitor_session_id');
+        if (!visitorSessionId) {
+            visitorSessionId = 'v_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now();
+            localStorage.setItem('visitor_session_id', visitorSessionId);
+        }
+
+        function detectDevice() {
+            const ua = navigator.userAgent;
+            if (/(tablet|ipad|playbook)|(android(?!.*mobile))/i.test(ua)) return 'Tablet';
+            if (/(Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk)/i.test(ua)) return 'Mobile';
+            return 'Desktop';
+        }
+
+        function detectBrowser() {
+            const ua = navigator.userAgent;
+            if (ua.includes('Edg')) return 'Edge';
+            if (ua.includes('Chrome')) return 'Chrome';
+            if (ua.includes('Safari')) return 'Safari';
+            if (ua.includes('Firefox')) return 'Firefox';
+            return 'Browser';
+        }
+
+        function pushVisitorToFirebase() {
+            if (!rtdb) return;
+
+            const savedName = localStorage.getItem('visitor_display_name') || '';
+            const displayName = savedName || ('Guest #' + visitorSessionId.substring(2, 6));
+
+            const sessionRef = rtdb.ref('portfolio_visitors/active_sessions/' + visitorSessionId);
+            
+            // Remove active status on browser close
+            sessionRef.onDisconnect().remove();
+
+            sessionRef.set({
+                session_id: visitorSessionId,
+                display_name: displayName,
+                city: 'Manila',
+                country: 'Philippines',
+                device: detectDevice(),
+                browser: detectBrowser(),
+                last_activity_at: Date.now()
+            });
+
+            // Increment Total Views counter on first load
+            if (!sessionStorage.getItem('page_view_counted')) {
+                sessionStorage.setItem('page_view_counted', 'true');
+                rtdb.ref('portfolio_visitors/stats/total_views').transaction((current) => {
+                    return (current || 0) + 1;
+                });
+                rtdb.ref('portfolio_visitors/stats/unique_visitors').transaction((current) => {
+                    return (current || 0) + 1;
+                });
+            }
+        }
+
         if (rtdb) {
+            // Push current visitor session
+            pushVisitorToFirebase();
+
+            // Heartbeat every 20 seconds to keep online status active
+            setInterval(() => {
+                const sessionRef = rtdb.ref('portfolio_visitors/active_sessions/' + visitorSessionId + '/last_activity_at');
+                sessionRef.set(Date.now());
+            }, 20000);
+
             // Realtime Listener for Total Views
             rtdb.ref('portfolio_visitors/stats/total_views').on('value', (snapshot) => {
                 const totalViews = snapshot.val();
-                if (totalViews) {
+                if (totalViews !== null) {
                     const vEl = document.getElementById('vTotalViews');
                     if (vEl) vEl.textContent = Number(totalViews).toLocaleString();
                     const heroEl = document.getElementById('heroViewsNum');
                     if (heroEl) heroEl.innerHTML = Number(totalViews).toLocaleString() + '<span>+</span>';
+                }
+            });
+
+            rtdb.ref('portfolio_visitors/stats/unique_visitors').on('value', (snapshot) => {
+                const uniqueVal = snapshot.val();
+                if (uniqueVal !== null) {
+                    const uEl = document.getElementById('vUniqueVisitors');
+                    if (uEl) uEl.textContent = Number(uniqueVal).toLocaleString();
                 }
             });
 
@@ -2804,6 +2877,26 @@
             });
         }
 
+        // Save Custom Visitor Name to Firebase & localStorage
+        function saveVisitorName() {
+            const input = document.getElementById('visitor_name_input');
+            const status = document.getElementById('nameStatusMsg');
+            const name = input ? input.value.trim() : '';
+
+            if (!name) return;
+
+            localStorage.setItem('visitor_display_name', name);
+
+            if (rtdb) {
+                rtdb.ref('portfolio_visitors/active_sessions/' + visitorSessionId + '/display_name').set(name);
+            }
+
+            if (status) {
+                status.textContent = '✓ Saved! Hello, ' + escapeHtml(name) + '!';
+                setTimeout(() => { status.textContent = ''; }, 3500);
+            }
+        }
+
         function timeAgo(timestampMs) {
             if (!timestampMs) return 'Just now';
             const diffSec = Math.floor((Date.now() - timestampMs) / 1000);
@@ -2821,12 +2914,13 @@
             visitors.forEach(v => {
                 const row = document.createElement('div');
                 row.className = 'visitor-row';
+                const isCurrent = (v.session_id === visitorSessionId);
 
                 row.innerHTML = `
                     <div class="visitor-info">
                         <span class="visitor-flag">📍</span>
                         <div>
-                            <strong>${escapeHtml(v.display_name || 'Guest')}</strong>
+                            <strong>${escapeHtml(v.display_name || 'Guest')} ${isCurrent ? '<span style="color:var(--accent); font-size:0.7rem;">(You)</span>' : ''}</strong>
                             <div class="visitor-meta">${escapeHtml(v.city || 'Manila')}, ${escapeHtml(v.country || 'Philippines')} • ${escapeHtml(v.device || 'Desktop')} (${escapeHtml(v.browser || 'Browser')})</div>
                         </div>
                     </div>
