@@ -5,7 +5,11 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VisitorController;
 
 Route::get('/', function (Illuminate\Http\Request $request) {
-    app(VisitorController::class)->logVisit($request);
+    try {
+        app(VisitorController::class)->logVisit($request);
+    } catch (\Throwable $e) {
+        report($e);
+    }
     return view('welcome');
 });
 

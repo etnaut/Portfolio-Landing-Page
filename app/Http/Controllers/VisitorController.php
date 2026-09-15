@@ -14,52 +14,57 @@ class VisitorController extends Controller
      */
     public function logVisit(Request $request)
     {
-        $sessionId = $request->session()->getId();
-        if (!$sessionId) {
-            $sessionId = Str::uuid()->toString();
-            $request->session()->put('_visitor_id', $sessionId);
-        }
-
-        $ip = $request->ip();
-        $userAgent = $request->userAgent() ?? '';
-
-        $device = $this->parseDevice($userAgent);
-        $browser = $this->parseBrowser($userAgent);
-
-        $visitor = Visitor::where('session_id', $sessionId)->first();
-
-        if (!$visitor) {
-            $location = $this->resolveLocation($ip);
-
-            $visitor = Visitor::create([
-                'session_id' => $sessionId,
-                'ip_address' => $ip,
-                'display_name' => $request->session()->get('visitor_display_name'),
-                'city' => $location['city'],
-                'country' => $location['country'],
-                'country_code' => $location['country_code'],
-                'device' => $device,
-                'browser' => $browser,
-                'page_views' => 1,
-                'last_activity_at' => now(),
-            ]);
-        } else {
-            $visitor->increment('page_views');
-            $visitor->update([
-                'last_activity_at' => now(),
-                'device' => $device,
-                'browser' => $browser,
-            ]);
-
-            if ($request->session()->has('visitor_display_name') && !$visitor->display_name) {
-                $visitor->update(['display_name' => $request->session()->get('visitor_display_name')]);
+        try {
+            $sessionId = $request->session()->getId();
+            if (!$sessionId) {
+                $sessionId = Str::uuid()->toString();
+                $request->session()->put('_visitor_id', $sessionId);
             }
+
+            $ip = $request->ip();
+            $userAgent = $request->userAgent() ?? '';
+
+            $device = $this->parseDevice($userAgent);
+            $browser = $this->parseBrowser($userAgent);
+
+            $visitor = Visitor::where('session_id', $sessionId)->first();
+
+            if (!$visitor) {
+                $location = $this->resolveLocation($ip);
+
+                $visitor = Visitor::create([
+                    'session_id' => $sessionId,
+                    'ip_address' => $ip,
+                    'display_name' => $request->session()->get('visitor_display_name'),
+                    'city' => $location['city'],
+                    'country' => $location['country'],
+                    'country_code' => $location['country_code'],
+                    'device' => $device,
+                    'browser' => $browser,
+                    'page_views' => 1,
+                    'last_activity_at' => now(),
+                ]);
+            } else {
+                $visitor->increment('page_views');
+                $visitor->update([
+                    'last_activity_at' => now(),
+                    'device' => $device,
+                    'browser' => $browser,
+                ]);
+
+                if ($request->session()->has('visitor_display_name') && !$visitor->display_name) {
+                    $visitor->update(['display_name' => $request->session()->get('visitor_display_name')]);
+                }
+            }
+
+            // Firebase Realtime Database Sync
+            $this->syncToFirebase($visitor);
+
+            return $visitor;
+        } catch (\Throwable $e) {
+            report($e);
+            return null;
         }
-
-        // Firebase Realtime Database Sync
-        $this->syncToFirebase($visitor);
-
-        return $visitor;
     }
 
     /**
