@@ -2742,6 +2742,9 @@
                     navToggle.setAttribute('aria-expanded', 'false');
                 }
             });
+        }
+    </script>
+
     <!-- Firebase Realtime Database SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
